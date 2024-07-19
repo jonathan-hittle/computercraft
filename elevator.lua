@@ -10,7 +10,7 @@ rednet.open("right")
 rednet.send(server_id, LV8_REQ..direction, LV8_PROTOCOL)
 repeat
     local id, message, resp_prot = rednet.receive()
-    if id == server_id and resp_prot == LV8_PROTOCOL and lv8_mess_is_resp(message) then
+    if id == server_id and resp_prot == LV8_PROTOCOL and lv8_mess_is_response(message) then
         print("received response: "..message)
     else
         print("received unexpected message: "..message)
