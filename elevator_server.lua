@@ -7,7 +7,7 @@ function usage()
     return "elevator <up|down>"
 end
 
-function doNothing() print("Doing nothing".) end
+function doNothing() print("Doing nothing.") end
 
 function sendToTop()
 	print("Sending elevator to the top.")
