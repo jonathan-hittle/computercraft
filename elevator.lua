@@ -11,7 +11,7 @@ rednet.send(server_id, LV8_REQ..direction, LV8_PROTOCOL)
 repeat
 	local id, message, resp_prot = rednet.receive()
 	sId = message["nSender"]
-	sProt = message["sProtocol"]
+	sProt = message["sProtocol"] or "nil"
 	sMess = message["message"]
 	if id == server_id and resp_prot == LV8_PROTOCOL and lv8_mess_is_response(sMess) then
 		print("received response: "..sMess)
