@@ -8,7 +8,7 @@ end
  
 rednet.open("right")
 rednet.send(server_id, LV8_REQ..direction, LV8_PROTOCOL)
-repeat
+for response_waits = 1, 5 do
 	local id, message, resp_prot = rednet.receive()
 	sId = message["nSender"]
 	sProt = message["sProtocol"] or "nil"
@@ -19,5 +19,13 @@ repeat
 		print("received unexpected message: "..sMess)
 		print("from comp id, protocol: "..id..", "..sProt)
 	end
-until id == server_id and resp_prot == LV8_PROTOCOL and lv8_mess_is_response(sMess)
+	if id == server_id and resp_prot == LV8_PROTOCOL and lv8_mess_is_response(sMess) then
+		break
+	end
+	sleep(5)
+end
+if response_waits == 5 then
+	print("Timed out waiting for response")
+	print("Engage optical scanners to confirm current status.")
+end
 rednet.close("right")
