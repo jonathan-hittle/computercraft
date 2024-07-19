@@ -31,7 +31,7 @@ while true do
 		print(tostring(key)..": "..tostring(value))
 	end
 	sId = message["nSender"]
-	sProt = message["sProtocol"]
+	sProt = message["sProtocol"] or "nil"
 	sMess = message["message"]
 	print("Received message:")
 	print("Sender ID: "..sId)
