@@ -1,21 +1,20 @@
+require"elevator_common"
 local direction = string.lower(arg[1] or "nil")
-local motor = peripheral.wrap("left")
-local speed = 256
 local server_id = 20 -- magic no. ; server comp id
-local protocol = "elevator"
+
 function usage()
     print("elevator <up|down>")
 end
  
 rednet.open("right")
-rednet.send(server_id, direction, protocol)
+rednet.send(server_id, LV8_REQ..direction, LV8_PROTOCOL)
 repeat
-    local id, response, resp_prot = rednet.receive()
-    if id == server_id and resp_prot == protocol then
-        print("received response: "..response)
+    local id, message, resp_prot = rednet.receive()
+    if id == server_id and resp_prot == LV8_PROTOCOL and lv8_mess_is_resp(message) then
+        print("received response: "..message)
     else
-        print("received unexpected message: "..response)
+        print("received unexpected message: "..message)
         print("from comp id, protocol: "..id..", "..resp_prot)
     end
-until id == server_id and resp_prot == protocol
+until id == server_id and resp_prot == LV8_PROTOCOL and lv8_mess_is_resp(message)
 rednet.close("right")

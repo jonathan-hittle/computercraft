@@ -1,39 +1,63 @@
+require"elevator_common"
 -- local direction = string.lower(arg[1] or "nil")
-local motor = peripheral.wrap("left")
-local speed = 256
-local protocol = "elevator"
+MOTOR = peripheral.wrap("left")
+SPEED = 256
 
 function usage()
     return "elevator <up|down>"
-  end
+end
+
+function doNothing() print("Doing nothing".) end
+
+function sendToTop()
+	print("Sending elevator to the top.")
+	MOTOR.setSpeed(SPEED)
+	sleep(25)
+	MOTOR.stop()
+end
+
+function sendToBottom()
+	print("Sending elevator to the bottom.")
+	MOTOR.setSpeed(-SPEED)
+	sleep(25)
+	MOTOR.stop()
+end
 
 rednet.open("right")
 while true do
-    print("Elevator server waiting for command")
-    local id, message, prot = rednet.receive()
-    sId = message["nSender"]
-    sProt = message["sProtocol"]
-    sMess = message["message"]
-    for key, value in pairs(message) do
-        print(tostring(key)..": "..tostring(value))
-    end
-    print("Received message:")
-    print("Sender ID: "..sId)
-    print("Protocol: "..sProt)
-    print("Message: "..sMess)
-    if sProt == protocol then
-          direction = string.lower(sMess)
-        if direction == "up" then
-            motor.setSpeed(speed)
-            response = "Sending elevator up"
-        elseif direction == "down" then
-            motor.setSpeed(-speed)
-            response = "Sending elevator down"
-        else
-            response = usage()
-        end
-    else
-        response = "Don't understand protocol "..sProt
-    end
-    rednet.send(id, response)
+	print("Elevator server waiting for request")
+	local id, message, prot = rednet.receive()
+	for key, value in pairs(message) do
+		print(tostring(key)..": "..tostring(value))
+	end
+	sId = message["nSender"]
+	sProt = message["sProtocol"]
+	sMess = message["message"]
+	print("Received message:")
+	print("Sender ID: "..sId)
+	print("Protocol: "..sProt)
+	print("Message: "..sMess)
+
+	-- Default to doing nothing
+	action = doNothing
+	slMess = string.lower(sMess)
+	if sProt ~= LV8_PROTOCOL then
+		response = "Don't understand protocol "..sProt
+	elseif not lv8_mess_is_request(slMess) then
+		print("ignoring "..sMess)
+		response = nil
+	else
+		request = slMess
+		if request == LV8_REQ_UP then
+			action = sendToTop
+			response = "Sending elevator up"
+		elseif request == LV8_REQ_DOWN then
+			action = sendToBottom
+			response = "Sending elevator down"
+		else
+			response = usage()
+		end
+	end
+	if response ~= nil then rednet.send(id, response) end
+	action()
 end 
