@@ -17,7 +17,7 @@ repeat
 		print("received response: "..sMess)
 	else
 		print("received unexpected message: "..sMess)
-		print("from comp id, protocol: "..id..", "..resp_prot)
+		print("from comp id, protocol: "..id..", "..sProt)
 	end
 until id == server_id and resp_prot == LV8_PROTOCOL and lv8_mess_is_response(sMess)
 rednet.close("right")
