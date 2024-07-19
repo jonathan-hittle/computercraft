@@ -8,9 +8,9 @@ LV8_REQ_UP = LV8_REQ..LV8_DIR_UP
 LV8_REQ_DOWN = LV8_REQ..LV8_DIR_DOWN
 
 function lv8_mess_is_request(mess)
-	return string.find(mess, "^"..LV8_REQ) ~= nil
+	return string.find(mess, "^"..toString(LV8_REQ)) ~= nil
 end
 
 function lv8_mess_is_response(mess)
-	return string.find(mess, "^"..LV8_RESP) ~= nil
+	return string.find(mess, "^"..toString(LV8_RESP)) ~= nil
 end
