@@ -16,5 +16,5 @@ repeat
         print("received unexpected message: "..message)
         print("from comp id, protocol: "..id..", "..resp_prot)
     end
-until id == server_id and resp_prot == LV8_PROTOCOL and lv8_mess_is_resp(message)
+until id == server_id and resp_prot == LV8_PROTOCOL and lv8_mess_is_response(message)
 rednet.close("right")
