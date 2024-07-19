@@ -11,6 +11,7 @@ got_response=false
 rednet.open("right")
 rednet.send(server_id, LV8_REQ..direction, LV8_PROTOCOL)
 for response_waits = 1,5 do
+	print("Attempt "..response_waits.." to wait for response")
 	local id, message, resp_prot = rednet.receive()
 	sId = message["nSender"]
 	sProt = message["sProtocol"] or "nil"
