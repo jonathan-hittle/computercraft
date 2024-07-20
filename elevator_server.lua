@@ -25,22 +25,23 @@ end
 
 rednet.open("right")
 while true do
+	local response=""
 	print("Elevator server waiting for request")
 	local id, message, prot = rednet.receive()
 	for key, value in pairs(message) do
 		print(tostring(key)..": "..tostring(value))
 	end
-	sId = message["nSender"]
-	sProt = message["sProtocol"] or "nil"
-	sMess = message["message"]
+	local sId = message["nSender"]
+	local sProt = message["sProtocol"] or "nil"
+	local sMess = message["message"]
 	print("Received message:")
 	print("Sender ID: "..sId)
 	print("Protocol: "..sProt)
 	print("Message: "..sMess)
 
 	-- Default to doing nothing
-	action = doNothing
-	slMess = string.lower(sMess)
+	local action = doNothing
+	local slMess = string.lower(sMess)
 	if sProt ~= LV8_PROTOCOL then
 		response = "Don't understand protocol "..sProt
 	elseif not lv8_mess_is_request(slMess) then
