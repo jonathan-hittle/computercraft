@@ -13,18 +13,22 @@ rednet.send(server_id, LV8_REQ..direction, LV8_PROTOCOL)
 for response_waits = 1,5 do
 	print("Attempt "..response_waits.." to wait for response")
 	local id, message, resp_prot = rednet.receive(1)
-	sId = message["nSender"]
-	sProt = message["sProtocol"] or "nil"
-	sMess = message["message"]
-	if id == server_id and resp_prot == LV8_PROTOCOL and lv8_mess_is_response(sMess) then
-		print("received response: "..sMess)
+	if id ~= nil then
+		sId = message["nSender"]
+		sProt = message["sProtocol"] or "nil"
+		sMess = message["message"]
+		if id == server_id and resp_prot == LV8_PROTOCOL and lv8_mess_is_response(sMess) then
+			print("received response: "..sMess)
+		else
+			print("received unexpected message: "..sMess)
+			print("from comp id, protocol: "..id..", "..sProt)
+		end
+		if id == server_id and resp_prot == LV8_PROTOCOL and lv8_mess_is_response(sMess) then
+			got_response=true
+			break
+		end
 	else
-		print("received unexpected message: "..sMess)
-		print("from comp id, protocol: "..id..", "..sProt)
-	end
-	if id == server_id and resp_prot == LV8_PROTOCOL and lv8_mess_is_response(sMess) then
-		got_response=true
-		break
+		print("Timeout while waiting to receive reply; will retry.")
 	end
 	sleep(5)
 end
