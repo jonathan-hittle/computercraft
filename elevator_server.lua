@@ -58,6 +58,9 @@ while true do
 			response = usage()
 		end
 	end
-	if response ~= nil then rednet.send(id, LV8_RESP..response, LV8_PROTOCOL) end
+	if response ~= nil then
+		print("Sending response: "..response)
+		rednet.send(id, LV8_RESP..response, LV8_PROTOCOL)
+	end
 	action()
 end 
