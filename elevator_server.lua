@@ -26,14 +26,26 @@ end
 rednet.open("right")
 while true do
 	local response=""
+	local sID=""
+	local sProt=""
+	local sMess=""
+
 	print("Elevator server waiting for request")
 	local id, message, prot = rednet.receive()
-	for key, value in pairs(message) do
-		print(tostring(key)..": "..tostring(value))
+	print("Received message of type: "..type(message))
+	if type(message) == "table" then
+		for key, value in pairs(message) do
+			print(tostring(key)..": "..tostring(value))
+		end
+		sId = message["nSender"]
+		sProt = message["sProtocol"] or "nil"
+		sMess = message["message"]
+	else
+		sId = id
+		sProt = prot or "nil"
+		sMess = message or "nil"
 	end
-	local sId = message["nSender"]
-	local sProt = message["sProtocol"] or "nil"
-	local sMess = message["message"]
+
 	print("Received message:")
 	print("Sender ID: "..sId)
 	print("Protocol: "..sProt)
