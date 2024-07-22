@@ -38,11 +38,11 @@ while true do
 		for key, value in pairs(message) do
 			print(tostring(key)..": "..tostring(value))
 		end
-		sId = message["nSender"]
+		sId = message["nSender"] or "nil"
 		sProt = message["sProtocol"] or "nil"
-		sMess = message["message"]
+		sMess = message["message"] or "nil"
 	else
-		sId = id
+		sId = id or "nil"
 		sProt = prot or "nil"
 		sMess = message or "nil"
 	end

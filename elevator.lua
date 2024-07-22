@@ -30,13 +30,13 @@ for response_waits = 1,5 do
 	local id, message, resp_prot = rednet.receive(5)
 	if id ~= nil then
 		if type(message) == "table" then
-			sId = message["nSender"]
+			sId = message["nSender"] or "nil"
 			sProt = message["sProtocol"] or "nil"
-			sMess = message["message"]
+			sMess = message["message"] or "nil"
 		else
-			sId = id
+			sId = id or "nil"
 			sProt = resp_prot or "nil"
-			sMess = message
+			sMess = message or "nil"
 		end
 		if id == server_id
 		and resp_prot == LV8_PROTOCOL
