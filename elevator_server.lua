@@ -11,15 +11,17 @@ function doNothing() print("Doing nothing.") end
 
 function sendToTop()
 	print("Sending elevator to the top.")
-	MOTOR.setSpeed(SPEED)
-	sleep(25)
+	-- MOTOR.setSpeed(SPEED)
+	-- sleep(25)
+	sleep(MOTOR.translate(127, SPEED))
 	MOTOR.stop()
 end
 
 function sendToBottom()
 	print("Sending elevator to the bottom.")
-	MOTOR.setSpeed(-SPEED)
-	sleep(25)
+	-- MOTOR.setSpeed(-SPEED)
+	-- sleep(25)
+	sleep(MOTOR.translate(127, -SPEED))
 	MOTOR.stop()
 end
 
