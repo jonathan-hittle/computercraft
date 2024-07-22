@@ -24,6 +24,7 @@ function sendToBottom()
 end
 
 rednet.open("right")
+rednet.host(LV8_PROTOCOL, LV8_SERVER)
 while true do
 	local response=""
 	local sID=""
