@@ -34,7 +34,7 @@ while true do
 	local sMess=""
 
 	print("Elevator server waiting for request")
-	local id, message, prot = rednet.receive()
+	local id, message, prot = rednet.receive(LV8_PROTOCOL)
 	print("Received message of type: "..type(message))
 	if type(message) == "table" then
 		for key, value in pairs(message) do

@@ -27,7 +27,7 @@ rednet.send(server_id, LV8_REQ..direction, LV8_PROTOCOL)
 local got_response=false
 for response_waits = 1,5 do
 	print("Attempt "..response_waits.." to wait for response")
-	local id, message, resp_prot = rednet.receive(5)
+	local id, message, resp_prot = rednet.receive(LV8_PROTOCOL, 5)
 	if id ~= nil then
 		if type(message) == "table" then
 			sId = message["nSender"] or "nil"
