@@ -1,6 +1,6 @@
 -- common definitions used by elevator server and client
 LV8_PROTOCOL = "elevator"
-LV8_SERVER = LV8_PROTOCOL"-server"
+LV8_SERVER = LV8_PROTOCOL.."-server"
 LV8_REQ = "request:"
 LV8_RESP = "response:"
 LV8_DIR_UP = "up"
