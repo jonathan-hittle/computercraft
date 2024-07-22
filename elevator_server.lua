@@ -2,6 +2,7 @@ require"elevator_common"
 -- local direction = string.lower(arg[1] or "nil")
 MOTOR = peripheral.wrap("left")
 SPEED = 256
+ELEVATOR_HEIGHT = 128	-- top is at 63. might also be length limit of rope
 
 function usage()
     return "elevator <up|down>"
@@ -11,17 +12,13 @@ function doNothing() print("Doing nothing.") end
 
 function sendToTop()
 	print("Sending elevator to the top.")
-	-- MOTOR.setSpeed(SPEED)
-	-- sleep(25)
-	sleep(MOTOR.translate(127, SPEED))
+	sleep(MOTOR.translate(ELEVATOR_HEIGHT, SPEED))
 	MOTOR.stop()
 end
 
 function sendToBottom()
 	print("Sending elevator to the bottom.")
-	-- MOTOR.setSpeed(-SPEED)
-	-- sleep(25)
-	sleep(MOTOR.translate(127, -SPEED))
+	sleep(MOTOR.translate(ELEVATOR_HEIGHT, -SPEED))
 	MOTOR.stop()
 end
 
@@ -37,9 +34,9 @@ while true do
 	local id, message, prot = rednet.receive(LV8_PROTOCOL)
 	print("Received message of type: "..type(message))
 	if type(message) == "table" then
-		for key, value in pairs(message) do
-			print(tostring(key)..": "..tostring(value))
-		end
+		-- for key, value in pairs(message) do
+		-- 	print(tostring(key)..": "..tostring(value))
+		-- end
 		sId = message["nSender"] or "nil"
 		sProt = message["sProtocol"] or "nil"
 		sMess = message["message"] or "nil"
