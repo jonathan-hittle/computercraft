@@ -13,7 +13,7 @@ if destination ~= LV8_DIR_UP
     and LV8_LEVELS[destination] == nil then
 	print("usage: elevator <up|down|level name>")
 	print("where <level name> can be one of: ")
-	for key in LV8_LEVELS do
+	for key, value in pairs(LV8_LEVELS) do
 		print(key)
 	end
 	return LV8_EINVAL
