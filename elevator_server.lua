@@ -5,7 +5,7 @@ SPEED = 256
 ELEVATOR_HEIGHT = 128	-- top is at 63. might also be length limit of rope
 
 function usage()
-    return "elevator <up|down>"
+    return "elevator <up|down|level name>"
 end
 
 function doNothing() print("Doing nothing.") end
@@ -21,6 +21,22 @@ function sendToBottom()
 	sleep(MOTOR.translate(ELEVATOR_HEIGHT, -SPEED))
 	MOTOR.stop()
 end
+
+function sendToHeight(height)
+	local distance = math.abs(height - CURR_HEIGHT)
+	local speed = SPEED
+	if height < CURR_HEIGHT then speed = -SPEED end
+	print("Currently at height: "..CURR_HEIGHT)
+	print("Sending to height: "..height)
+	print("Distance is: "..distance)
+	print("Rotation is: "..speed)
+	sleep(MOTOR.translate(distance), speed)
+	CURR_HEIGHT = height
+end
+
+-- Use the top as the home position
+sendToTop()
+CURR_HEIGHT = LV8_LEVELS["Top"]
 
 rednet.open("right")
 rednet.host(LV8_PROTOCOL, LV8_SERVER)
@@ -61,12 +77,16 @@ while true do
 		response = nil
 	else
 		request = slMess
-		if request == LV8_REQ_UP then
+		cmd = string.sub(request, string.len(LV8_REQ))
+		if cmd == LV8_DIR_UP then
 			action = sendToTop
 			response = "Sending elevator up"
-		elseif request == LV8_REQ_DOWN then
+		elseif cmd == LV8_DIR_DOWN then
 			action = sendToBottom
 			response = "Sending elevator down"
+		elseif LV8_LEVELS[cmd] ~= nil then
+			action = sendToHeight(LV8_LEVELS[cmd])
+			response = "Sending to "..cmd..", height "..LV8_LEVELS[cmd]
 		else
 			response = usage()
 		end
