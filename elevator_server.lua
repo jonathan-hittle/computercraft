@@ -36,7 +36,7 @@ end
 
 -- Use the top as the home position
 sendToTop()
-CURR_HEIGHT = LV8_LEVELS["Top"]
+CURR_HEIGHT = LV8_LEVELS["top"]
 
 rednet.open("right")
 rednet.host(LV8_PROTOCOL, LV8_SERVER)
@@ -69,6 +69,7 @@ while true do
 
 	-- Default to doing nothing
 	local action = doNothing
+	local param = nil
 	local slMess = string.lower(sMess)
 	if sProt ~= LV8_PROTOCOL then
 		response = "Don't understand protocol "..sProt
@@ -77,7 +78,8 @@ while true do
 		response = nil
 	else
 		request = slMess
-		cmd = string.sub(request, string.len(LV8_REQ))
+		cmd = string.sub(request, string.len(LV8_REQ)+1)
+		print("cmd="..cmd)
 		if cmd == LV8_DIR_UP then
 			action = sendToTop
 			response = "Sending elevator up"
@@ -85,7 +87,8 @@ while true do
 			action = sendToBottom
 			response = "Sending elevator down"
 		elseif LV8_LEVELS[cmd] ~= nil then
-			action = sendToHeight(LV8_LEVELS[cmd])
+			action = sendToHeight
+			param = LV8_LEVELS[cmd]
 			response = "Sending to "..cmd..", height "..LV8_LEVELS[cmd]
 		else
 			response = usage()
@@ -95,5 +98,5 @@ while true do
 		print("Sending response: "..response)
 		rednet.send(id, LV8_RESP..response, LV8_PROTOCOL)
 	end
-	action()
+	action(param)
 end 
