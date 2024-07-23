@@ -11,9 +11,9 @@ LV8_REQ_DOWN = LV8_REQ..LV8_DIR_DOWN
 -- The keys in this table will be presented as destinations.
 -- The values are the in-world "Y" values for height.
 LV8_LEVELS = {}
-LV8_LEVELS["Top"] = 63
-LV8_LEVELS["Ag"] = 8
-LV8_LEVELS["Bottom"] = -63
+LV8_LEVELS["top"] = 63
+LV8_LEVELS["ag"] = 8
+LV8_LEVELS["bottom"] = -63
 
 LV8_EINVAL = 22
 LV8_EHOSTDOWN = 112
