@@ -14,23 +14,26 @@ function sendToTop()
 	print("Sending elevator to the top.")
 	sleep(MOTOR.translate(ELEVATOR_HEIGHT, SPEED))
 	MOTOR.stop()
+	CURR_HEIGHT = LV8_LEVELS["top"]
 end
 
 function sendToBottom()
 	print("Sending elevator to the bottom.")
 	sleep(MOTOR.translate(ELEVATOR_HEIGHT, -SPEED))
 	MOTOR.stop()
+	CURR_HEIGHT = LV8_LEVELS["bottom"]
 end
 
 function sendToHeight(height)
-	local distance = math.abs(height - CURR_HEIGHT)
+	local distance = math.abs(height - CURR_HEIGHT) + 1
 	local speed = SPEED
 	if height < CURR_HEIGHT then speed = -SPEED end
 	print("Currently at height: "..CURR_HEIGHT)
 	print("Sending to height: "..height)
 	print("Distance is: "..distance)
 	print("Rotation is: "..speed)
-	sleep(MOTOR.translate(distance), speed)
+	sleep(MOTOR.translate(distance, speed))
+	MOTOR.stop()
 	CURR_HEIGHT = height
 end
 
