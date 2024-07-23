@@ -6,7 +6,18 @@ function usage()
 end
 
 local modem_direction = ""
-local direction = string.lower(arg[1] or "nil")
+local destination = string.lower(arg[1] or "nil")
+
+if destination ~= LV8_DIR_UP
+    and destination ~= LV8_DIR_DOWN
+    and LV8_LEVELS[destination] == nil then
+	print("usage: elevator <up|down|level name>")
+	print("where <level name> can be one of: ")
+	for key in LV8_LEVELS do
+		print(key)
+	end
+	return LV8_EINVAL
+end
 
 if pocket then
 	modem_direction = "back"
@@ -20,10 +31,10 @@ rednet.open(modem_direction)
 local server_id = rednet.lookup(LV8_PROTOCOL, LV8_SERVER)
 if not server_id then
 	print("Elevator server not found.")
-	return
+	return LV8_EHOSTDOWN
 end
 
-rednet.send(server_id, LV8_REQ..direction, LV8_PROTOCOL)
+rednet.send(server_id, LV8_REQ..destination, LV8_PROTOCOL)
 local got_response=false
 for response_waits = 1,5 do
 	print("Attempt "..response_waits.." to wait for response")
