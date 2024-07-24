@@ -26,14 +26,23 @@ end
 
 function sendToHeight(height)
 	-- local distance = math.abs(height - CURR_HEIGHT) + 1
-	local distance = math.abs(lv8_y_to_abs_y(height) - lv8_y_to_abs_y(CURR_HEIGHT)) + 1
+	local distance = math.abs(lv8_y_to_abs_y(height) - lv8_y_to_abs_y(CURR_HEIGHT))
 	local speed = SPEED
-	if height < CURR_HEIGHT then speed = -SPEED end
+	local fudge = 0
+	if height < CURR_HEIGHT then
+		speed = -SPEED
+		-- What is this, you ask?
+		-- While it seems like motor.translate accurately calculates
+		-- time to RAISE an elevator, it seems to be off a bit for
+		-- LOWERING an elevator. It seems be around 1 second/64 meters
+		-- at speed 256.
+		fudge = math.ceil(distance / 64)
+	end
 	print("Currently at height: "..CURR_HEIGHT)
 	print("Sending to height: "..height)
 	print("Distance is: "..distance)
 	print("Rotation is: "..speed)
-	sleep(MOTOR.translate(distance, speed))
+	sleep(MOTOR.translate(distance, speed) + fudge)
 	MOTOR.stop()
 	CURR_HEIGHT = height
 end
