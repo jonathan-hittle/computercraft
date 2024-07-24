@@ -33,7 +33,7 @@ function sendToHeight(height)
 	-- It seems like motor.translate seems to be a bit off in its
 	-- calculation of the time to raise or lower an elevator.
 	-- It seems be around 1 second/64 meters at speed 256.
-	local fudge = floor(distance / 64)
+	local fudge = math.floor(distance / 64)
 	if height < CURR_HEIGHT then
 		speed = -SPEED
 	end
