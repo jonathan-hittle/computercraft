@@ -25,7 +25,8 @@ function sendToBottom()
 end
 
 function sendToHeight(height)
-	local distance = math.abs(height - CURR_HEIGHT) + 1
+	-- local distance = math.abs(height - CURR_HEIGHT) + 1
+	local distance = math.abs(lv8_y_to_abs_y(height) - lv8_y_to_abs_y(CURR_HEIGHT)) + 1
 	local speed = SPEED
 	if height < CURR_HEIGHT then speed = -SPEED end
 	print("Currently at height: "..CURR_HEIGHT)
