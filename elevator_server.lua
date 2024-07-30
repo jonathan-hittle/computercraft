@@ -36,6 +36,9 @@ function sendToHeight(height)
 	local fudge = math.floor(distance / 64)
 	if height < CURR_HEIGHT then
 		speed = -SPEED
+	else
+		-- Moving up seems reliably to go 1 meter too far
+		distance = distance - 1
 	end
 
 	print("Currently at height: "..CURR_HEIGHT)
