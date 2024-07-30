@@ -42,7 +42,8 @@ function sendToHeight(height)
 	print("Sending to height: "..height)
 	print("Distance is: "..distance)
 	print("Rotation is: "..speed)
-	sleep(MOTOR.translate(distance, speed) + fudge)
+	-- sleep(MOTOR.translate(distance, speed) + fudge)
+	sleep(MOTOR.rotate(distance * 90, speed))
 	MOTOR.stop()
 	CURR_HEIGHT = height
 end
