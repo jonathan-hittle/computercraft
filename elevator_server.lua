@@ -43,7 +43,10 @@ function sendToHeight(height)
 	print("Distance is: "..distance)
 	print("Rotation is: "..speed)
 	-- sleep(MOTOR.translate(distance, speed) + fudge)
-	sleep(MOTOR.rotate(distance * 90, speed))
+	-- 90 degrees will move a rope pulley 1 meter,
+	-- but over long distances this is off by about 1.72
+	-- therefore, rotate 155 degrees per meter
+	sleep(MOTOR.rotate(distance * 155, speed))
 	MOTOR.stop()
 	CURR_HEIGHT = height
 end
