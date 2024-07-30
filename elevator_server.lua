@@ -45,9 +45,9 @@ function sendToHeight(height)
 	-- sleep(MOTOR.translate(distance, speed) + fudge)
 	-- 90 degrees will move a rope pulley 1 meter,
 	-- but over long distances this is off by about 1.72
-	-- but 155 degrees is a little too much
+	-- 155 degrees is a little too much
 	-- therefore, rotate 154 degrees per meter
-	sleep(MOTOR.rotate(distance * 150, speed))
+	sleep(MOTOR.rotate(distance * 154, speed))
 	MOTOR.stop()
 	CURR_HEIGHT = height
 end
