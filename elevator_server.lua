@@ -36,9 +36,6 @@ function sendToHeight(height)
 	local fudge = math.floor(distance / 64)
 	if height < CURR_HEIGHT then
 		speed = -SPEED
-	else
-		-- Moving up seems reliably to go 1 meter too far
-		distance = distance - 1
 	end
 
 	print("Currently at height: "..CURR_HEIGHT)
@@ -48,8 +45,9 @@ function sendToHeight(height)
 	-- sleep(MOTOR.translate(distance, speed) + fudge)
 	-- 90 degrees will move a rope pulley 1 meter,
 	-- but over long distances this is off by about 1.72
-	-- therefore, rotate 155 degrees per meter
-	sleep(MOTOR.rotate(distance * 155, speed))
+	-- but 155 degrees is a little too much
+	-- therefore, rotate 150 degrees per meter
+	sleep(MOTOR.rotate(distance * 150, speed))
 	MOTOR.stop()
 	CURR_HEIGHT = height
 end
