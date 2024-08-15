@@ -106,7 +106,7 @@ repeat
 	else
 		-- if the width was even, then need to turn in the opposite
 		-- directions
-		rotated = ~rotated
+		rotated = not rotated
 	end
 
 	print("dig down and move down")
