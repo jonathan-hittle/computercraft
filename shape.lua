@@ -13,6 +13,7 @@ function turnFunc(width, rotated)
 		if turnFunc == turtle.turnLeft then
 			turnFunc = turtle.turnRight
 		end
+	end
 	return turnFunc
 end
 
