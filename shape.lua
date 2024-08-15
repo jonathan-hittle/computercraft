@@ -64,7 +64,7 @@ end
 function dropAll()
 	for slot = 1, 16 do
 		turtle.select(slot)
-		while ~turtle.drop() do
+		while not turtle.drop() do
 			print("Waiting for target inventory to have room")
 			sleep(5)
 		end
