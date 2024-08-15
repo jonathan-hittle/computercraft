@@ -74,12 +74,12 @@ end
 -- get the length of the line
 length = arg[1]
 width = arg[2] or 1
+depth = arg[3] or 1
 lines_dug = 0
 planes_dug = 0
  
 print("Digging parallelpiped of length "..length ..", width "..width.." to bedrock")
  
-depth = 0
 
 bname = readBlockBelow()
 print(string.match(bname, "bedrock"))
