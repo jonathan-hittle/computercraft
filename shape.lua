@@ -105,12 +105,15 @@ for planes_dug = 1, depth-1 do
 		turtle.turnRight()
 	end
 	if math.fmod(plane_width, 2) == 1 then
-		-- if the width was odd, then just need to turn around
+		-- if the width is odd, then digging an "N"
+		-- don't need to change turn direction
+		print("Not rotating turn direction")
 		rotated = false
 	else
-		-- if the width was even, then need to turn in the opposite
-		-- directions
-		rotated = true
+		-- if the width was even, then digging a "U"
+		-- need to change turn direction
+		print("Rotating turn direction")
+		rotated = not rotated
 	end
 
 	print("dig down and move down")
@@ -128,6 +131,7 @@ end
 
 -- Dig last plane
 print("Hit "..stop_reason..". Dig last plane.")
+print("Turn direction is rotated: "..rotated)
 digPlane(plane_length, plane_width, rotated)
 
 -- Move back to starting x, z
