@@ -33,7 +33,7 @@ function digPlane(length, width, rotated)
 	for wPos = 1, width do
 		-- one less than length because the turtle itself is the
 		-- first block of the length
-		digLine(len - 1)
+		digLine(length - 1)
 
 		if wPos < width then
 			turnFunc(wPos, rotated)
