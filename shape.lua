@@ -9,8 +9,7 @@ function turnFunc(width, rotated)
 	if rotated then
 		if turnFunc == turtle.turnRight then
 			turnFunc = turtle.turnLeft
-		end
-		if turnFunc == turtle.turnLeft then
+		else
 			turnFunc = turtle.turnRight
 		end
 	end
@@ -65,9 +64,11 @@ end
 function dropAll()
 	for slot = 1, 16 do
 		turtle.select(slot)
-		while not turtle.drop() do
-			print("Waiting for target inventory to have room")
-			sleep(5)
+		if turtle.getItemCount() > 0 then
+			while not turtle.drop() do
+				print("Wait for target inventory to have room")
+				sleep(5)
+			end
 		end
 	end
 end
@@ -79,7 +80,7 @@ depth = tonumber(arg[3]) or 512
 lines_dug = 0
 planes_dug = 0
  
-print("Digging parallelpiped of length "..length ..", width "..width.." to depth "..depth)
+print("Digging orthogonal parallelpiped of length "..length ..", width "..width.." height "..depth)
  
 
 bname = readBlockBelow()
