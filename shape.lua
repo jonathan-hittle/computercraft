@@ -89,13 +89,13 @@ print(string.match(bname, "bedrock") == nil)
 local plane_length = length
 local plane_width = width
 local dug_depth = 0
+local rotated = false
 
 local stop_reason = "specified depth"
 for planes_dug = 1, depth-1 do
 	print("Line below starts with "..bname..".")
 	print("Will dig line")
 
-	local rotated = false
 	digPlane(plane_length, plane_width, rotated)
 
 	print("turn to dig next plane")
