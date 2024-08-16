@@ -1,7 +1,7 @@
 -- given a width, determine whether the turtle should turn left or right
 function turnFunc(width, rotated)
 	local turnFunc = nil
-	if math.fmod(wPos, 2) == 1 then
+	if math.fmod(width, 2) == 1 then
 		turnFunc = turtle.turnRight
 	else
 		turnFunc = turtle.turnLeft
