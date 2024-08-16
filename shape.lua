@@ -131,7 +131,7 @@ end
 
 -- Dig last plane
 print("Hit "..stop_reason..". Dig last plane.")
-print("Turn direction is rotated: "..rotated)
+print("Turn direction is rotated: "..tostring(rotated))
 digPlane(plane_length, plane_width, rotated)
 
 -- Move back to starting x, z
