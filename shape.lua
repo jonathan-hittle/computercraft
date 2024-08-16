@@ -36,10 +36,10 @@ function digPlane(length, width, rotated)
 		digLine(length - 1)
 
 		if wPos < width then
-			turnFunc(wPos, rotated)
+			turnFunc(wPos, rotated)()
 			turtle.dig()
 			turtle.forward()
-			turnFunc(wPos, rotated)
+			turnFunc(wPos, rotated)()
 		end
 	end
 	planes_dug = planes_dug + 1
@@ -88,7 +88,9 @@ print(string.match(bname, "bedrock") == nil)
 
 local plane_length = length
 local plane_width = width
-repeat
+local dug_depth = 0
+
+for planes_dug = 0, depth-1 do
 	print("Line below starts with "..bname..".")
 	print("Will dig line")
 
@@ -114,8 +116,13 @@ repeat
 	turtle.digDown()
 	turtle.down()
 
+	dug_depth = dug_depth + 1
+
 	bname = readBlockBelow()
-until string.match(bname, "bedrock") ~= nil
+	if string.match(bname, "bedrock") ~= nil then
+		break
+	end
+end
 
 -- Dig last plane
 print("Hit Bedrock. Dig last plane.")
@@ -144,7 +151,7 @@ end
 
 -- Move back to starting depth
 print("Return to origin height")
-for pos = 1, depth do
+for pos = 1, dug_depth do
 	turtle.up()
 end
 
