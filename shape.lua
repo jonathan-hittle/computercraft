@@ -73,13 +73,13 @@ function dropAll()
 end
 
 -- get the length of the line
-length = arg[1]
-width = arg[2] or 1
-depth = arg[3] or 1
+length = tonumber(arg[1])
+width = tonumber(arg[2]) or 1
+depth = tonumber(arg[3]) or 512
 lines_dug = 0
 planes_dug = 0
  
-print("Digging parallelpiped of length "..length ..", width "..width.." to bedrock")
+print("Digging parallelpiped of length "..length ..", width "..width.." to depth "..depth)
  
 
 bname = readBlockBelow()
@@ -113,8 +113,6 @@ repeat
 	print("dig down and move down")
 	turtle.digDown()
 	turtle.down()
-
-	depth = depth + 1
 
 	bname = readBlockBelow()
 until string.match(bname, "bedrock") ~= nil
