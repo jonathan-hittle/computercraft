@@ -149,10 +149,15 @@ else
 end
 
 print("Return to origin width")
-turtle.turnRight()
-turtle.turnRight()
-for pos = 1, width-1 do
-	turtle.forward()
+if math.fmod(planes_dug, 2) == 1 then
+	print("Dug odd number of rows. Return to origin width")
+	turtle.turnRight()
+	for pos = 1, width-1 do
+		turtle.forward()
+	end
+	turtle.turnLeft()
+else
+	print("Dug even number of planes. Already at origin width")
 end
 
 
@@ -162,7 +167,6 @@ for pos = 1, dug_depth do
 	turtle.up()
 end
 
-turtle.turnLeft()
 dropAll()
 
 -- Turn back to original position
