@@ -128,7 +128,7 @@ end
 
 -- Dig last plane
 print("Hit "..stop_reason..". Dig last plane.")
-digPlane(plane_length, plane_width)
+digPlane(plane_length, plane_width, rotated)
 
 -- Move back to starting x, z
 print("Dug "..lines_dug.." lines.")
