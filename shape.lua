@@ -90,7 +90,8 @@ local plane_length = length
 local plane_width = width
 local dug_depth = 0
 
-for planes_dug = 0, depth-1 do
+local stop_reason = "specified depth"
+for planes_dug = 1, depth-1 do
 	print("Line below starts with "..bname..".")
 	print("Will dig line")
 
@@ -109,7 +110,7 @@ for planes_dug = 0, depth-1 do
 	else
 		-- if the width was even, then need to turn in the opposite
 		-- directions
-		rotated = not rotated
+		rotated = true
 	end
 
 	print("dig down and move down")
@@ -120,12 +121,13 @@ for planes_dug = 0, depth-1 do
 
 	bname = readBlockBelow()
 	if string.match(bname, "bedrock") ~= nil then
+		stop_reason="bedrock"
 		break
 	end
 end
 
 -- Dig last plane
-print("Hit Bedrock. Dig last plane.")
+print("Hit "..stop_reason..". Dig last plane.")
 digPlane(plane_length, plane_width)
 
 -- Move back to starting x, z
