@@ -112,11 +112,14 @@ function manage_inventory()
 	-- move forward and clean up a 3x3 area
 	-- doubtless things were dropped behind as well,
 	-- but don't want to code moving around the modular router and electric
+	turtle.suck()
 	turtle.forward()
+	turtle.suck()
 	turtle.turnLeft()
+	turtle.suck()
 	turtle.forward()
+	turtle.suck()
 	turtle.turnRight()
-
 	turtle.suck()
 
 	turnFunc = turtle.turnRight
@@ -126,7 +129,9 @@ function manage_inventory()
 			turtle.suck()
 		end
 		turnFunc()
+		turtle.suck()
 		turtle.forward()
+		turtle.suck()
 		turnFunc()
 		turtle.suck()
 
@@ -137,8 +142,12 @@ function manage_inventory()
 		end
 	end
 
+	turtle.suck()
 	turtle.forward()
+	turtle.suck()
 	turtle.forward()
+	turtle.suck()
+
 	turtle.turnRight()
 	turtle.forward()
 	turtle.forward()
@@ -171,20 +180,37 @@ function plant_tree()
 end
 
 function restart()
-	-- we're where we're supposed to be
-	if verify_charger() then return end
+	if verify_charger() then
+		if not verify_router() then
+			-- find the router and turn right
+			print("Looking for router")
+			local blockname = get_block(DIR_FORWARD)
+			for i = 1, 3 do
+				turtle.turnRight()
+				blockname = get_block(DIR_FORWARD)
+				if match_block_name(blockname, "modularrouters:modular_router") then
+					print("Found router")
+					break
+				end
+			end
+			turtle.turnRight()
+		end
+
+		-- we're where we're supposed to be
+		return
+	end
 
 	-- might have restarted after harvesting current height
 	if string.find(get_block(DIR_FORWARD) or "", "_log$") == nil then
 		turtle.digUp()
 		turtle.up()
 	end
-	
+
 	-- if a tree is here, fell it
 	if string.find(get_block(DIR_FORWARD) or "", "_log$") ~= nil then
 		fell_tree()
 	end
-	
+
 	-- move down as far as possible
 	while turtle.down() do end
 
