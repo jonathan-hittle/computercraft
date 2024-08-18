@@ -137,11 +137,10 @@ function manage_inventory()
 		end
 	end
 
-	turtle.turnRight()
-	turtle.turnRight()
 	turtle.forward()
 	turtle.forward()
 	turtle.turnRight()
+	turtle.forward()
 	turtle.forward()
 	turtle.turnRight()
 	turtle.back()
