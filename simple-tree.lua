@@ -151,7 +151,7 @@ function manage_inventory()
 		turtle.select(slot)
 		data = turtle.getItemDetail()
 		if data ~= nil then
-			if string.find(data["block"], "_sapling$") ~= nil then
+			if string.find(data["name"], "_sapling$") ~= nil then
 				turtle.transferTo(16)
 			end
 		end
