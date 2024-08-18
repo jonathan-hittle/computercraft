@@ -130,13 +130,17 @@ function manage_inventory()
 		turnFunc()
 		turtle.suck()
 
-		if turnFunc() == turtle.turnRight then
+		if turnFunc == turtle.turnRight then
 			turnFunc = turtle.turnLeft
 		else
 			turnFunc = turtle.turnRight
 		end
 	end
 
+	turtle.turnRight()
+	turtle.turnRight()
+	turtle.forward()
+	turtle.forward()
 	turtle.turnRight()
 	turtle.forward()
 	turtle.turnRight()
