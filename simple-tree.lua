@@ -14,9 +14,9 @@ function get_block(direction)
 
 	if direction == nil or direction == DIR_FORWARD then
 		inspectFunction = turtle.inspect
-	else if direction == DIR_UP then
+	elseif direction == DIR_UP then
 		inspectFunction = turtle.inspectUp
-	else if direction == DIR_DOWN then
+	elseif direction == DIR_DOWN then
 		inspectFunction = turtle.inspectDown
 	else
 		print("Undefined direction: "..toString(direction))
