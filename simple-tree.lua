@@ -24,7 +24,7 @@ function get_block(direction)
 	end
 
 	exists, block = inspectFunction()
-	if ~exists then return nil end
+	if not exists then return nil end
 
 	return block["name"] or ""
 end
@@ -49,7 +49,7 @@ function verify_charger()
 
 	blockname = get_block(DIR_DOWN)
 	is_charger = match_block_name(blockname, "peripherals:induction_charger")
-	if ~is_charger then
+	if not is_charger then
 		print("Block below turtle is not a charger.")
 	end
 
@@ -66,7 +66,7 @@ function verify_router()
 
 	blockname = get_block(DIR_FORWARD)
 	is_router = match_block_name(blockname, "modularrouters:modular_router")
-	if ~is_router then
+	if not is_router then
 		print("Block left of turtle is not a modular router.")
 	end
 
@@ -153,7 +153,7 @@ function manage_inventory()
 
 		-- send anything else through the router
 		if turtle.getItemCount() then
-			while ~turtle.drop() do
+			while not turtle.drop() do
 				print("Waiting for space in router.")
 				sleep(5)
 			end
