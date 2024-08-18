@@ -119,7 +119,7 @@ function manage_inventory()
 
 	turtle.suck()
 
-	turnFunc = turtle.turnRight()
+	turnFunc = turtle.turnRight
 	for row = 1, 3 do
 		for spot = 1, 2 do
 			turtle.forward()
