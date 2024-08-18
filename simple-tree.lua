@@ -41,6 +41,8 @@ function match_block_name(blockname, ref_name)
 	else
 		print("No block name.")
 	end
+
+	return matches
 end
 
 -- returns true if there is a charger under the turtle
