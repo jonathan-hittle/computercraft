@@ -157,7 +157,7 @@ function manage_inventory()
 		end
 
 		-- send anything else through the router
-		while turtle.getItemCount() and not turtle.drop() do
+		while turtle.getItemCount() > 0 and not turtle.drop() do
 			print("Waiting for space in router.")
 			sleep(5)
 		end
