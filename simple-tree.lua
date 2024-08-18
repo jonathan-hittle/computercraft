@@ -33,7 +33,7 @@ end
 function match_block_name(blockname, ref_name)
 	matches = false
 	if blockname ~= nil then
-		if blockname = ref_name then
+		if blockname == ref_name then
 			matches = true
 		else
 			print("Name '"..blockname.."' does not match ref '"..ref_name.."'.")
