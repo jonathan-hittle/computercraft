@@ -16,7 +16,9 @@ LV8_REQ_DOWN = LV8_REQ..LV8_DIR_DOWN
 -- These values are the Y value of something standing on the block
 LV8_LEVELS = {}
 LV8_LEVELS["top"] = 63
-LV8_LEVELS["crushing"] = 53
+LV8_LEVELS["compress"] = 53
+LV8_LEVELS["storage"] = 43
+LV8_LEVELS["manuf"] = 33
 LV8_LEVELS["ag"] = 8
 LV8_LEVELS["bottom"] = -63
 
